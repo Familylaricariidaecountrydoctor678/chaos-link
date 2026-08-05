@@ -24,6 +24,31 @@ docs/          UI concept and protocol notes
 - Node.js 20+
 - AutoHotkey v2 on the gaming PC
 
+## One-file Windows installer
+
+Build the self-contained setup script:
+
+```powershell
+.\scripts\build-portable-installer.ps1
+```
+
+Send `dist\ChaosLink-Setup.ps1` to the consenting gaming-PC owner. They run:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\ChaosLink-Setup.ps1
+```
+
+The setup explains what remote effects can do and requires typing `INSTALL`.
+It installs the app, a private .NET runtime, AutoHotkey v2, and Cloudflare
+Tunnel under `%LOCALAPPDATA%\ChaosLink`. It adds desktop shortcuts to start,
+stop, and completely uninstall the app. There is no autostart or hidden
+Windows service. One UAC prompt is used when the gaming agent starts.
+
+Startup prints a random public `https://*.trycloudflare.com` URL plus the room
+and access keys. Quick Tunnel needs no account or inbound router port, but its
+URL changes after every restart and it is intended for temporary sessions, not
+production hosting. Keep the admin key private.
+
 ## Development
 
 Install and build the web application:
