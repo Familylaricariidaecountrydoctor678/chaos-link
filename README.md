@@ -32,7 +32,9 @@ Build the self-contained setup script:
 .\scripts\build-portable-installer.ps1
 ```
 
-Send `dist\ChaosLink-Setup.ps1` to the consenting gaming-PC owner. They run:
+If the `ps2exe` module is installed, the build also creates
+`dist\ChaosLink-Setup.exe`. Send that EXE to the consenting gaming-PC owner and
+run it normally. The PowerShell script remains available as a fallback:
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\ChaosLink-Setup.ps1
